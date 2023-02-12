@@ -45,14 +45,15 @@ class BaseModel:
         return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
 
     def save(self):
-        """save and update the public attribute `updated_at` with current time"""
+        """
+        save and update the public attribute `updated_at` with current time
+        """
         self.updated_at = datetime.now()
         storage.save()
 
     def to_dict(self):
         """
         serialization of object by returning the dictionary of the object
-        
         Return:
             result (dict): Dictionary object that contains __dict__
         """

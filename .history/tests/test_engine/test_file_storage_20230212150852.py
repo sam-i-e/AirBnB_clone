@@ -16,17 +16,8 @@ class TestFileStorageClass(unittest.TestCase):
     and edge case usage of FileStorage Class.
     Inherits from TestCase class in unittest module.
     """
-
-    def setUp(self):
-        self.temp_file = "/temp_store.json"
-        self.temp_objs = [BaseModel(), BaseModel(), BaseModel()]
-        for obj in self.temp_objs:
-            storage.new(obj)
-        storage.save()
-
-    def tearDown(self):
-        """initialized object"""
-        del self.temp_objs
+    
+    
 
     def test_file_path_is_private_from_instance(self):
         """Test to ensure `__file_path` class attribute is a
@@ -116,11 +107,14 @@ class TestFileStorageClass(unittest.TestCase):
         for key in storage.all().keys():
             self.assertEqual(key, f"{objs[key].__class__.__name__}.{objs[key].id}")
 
-    def test_type(self):
-        """type checks for FileStorage
+    def test_objects_value_type(self):
+        """Test ensures all items in `__objects` private class
+        attribute dictionary have values of type dict.
         """
-        self.assertIsInstance(storage, FileStorage)
-        self.assertEqual(type(storage), FileStorage)
+        test_model_3 = BaseModel()
+        test_model_4 = BaseModel()
+        for value in storage._FileStorage__objects.values():
+            self.assertIsInstance(value, dict)
 
     def test_save(self):
         """Tests the FileStorage public instance method `save()`
@@ -141,18 +135,22 @@ class TestFileStorageClass(unittest.TestCase):
             pass
 
     def test_reload(self):
-        """tests reload functionality for FileStorage"""
+        """Tests the public instance method `reload` which deserializes
+        the JSON in __file_path and assigns it to __objects
+        """
+        prev_objs = storage._FileStorage__objects.copy()
+        storage.save()
+        test_model_5 = BaseModel(
+            id=str(uuid.uuid4()),
+            created_at=datetime.now().isoformat(),
+            updated_at=datetime.now().isoformat(),
+        )
+        storage.new(test_model_5)
+        curr_objs = storage._FileStorage__objects.copy()
         storage.reload()
-        obj_d = storage.all()
-        key = self.temp_objs[1].__class__.__name__ + "."
-        key += str(self.temp_objs[1].id)
-        self.assertNotEqual(obj_d[key], None)
-        self.assertEqual(obj_d[key].id, self.temp_objs[1].id)
-        key2 = "State.412409120491902491209491024"
-        try:
-            self.assertRaises(obj_d[key2], KeyError)
-        except:
-            pass
+        self.assertNotEqual(len(prev_objs), len(curr_objs))
+        self.assertNotEqual(storage._FileStorage__objects, curr_objs)
+        self.assertEqual(storage._FileStorage__objects, prev_objs)
 
 
 if __name__ == "__main__":

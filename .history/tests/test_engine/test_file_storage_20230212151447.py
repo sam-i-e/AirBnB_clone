@@ -116,11 +116,7 @@ class TestFileStorageClass(unittest.TestCase):
         for key in storage.all().keys():
             self.assertEqual(key, f"{objs[key].__class__.__name__}.{objs[key].id}")
 
-    def test_type(self):
-        """type checks for FileStorage
-        """
-        self.assertIsInstance(storage, FileStorage)
-        self.assertEqual(type(storage), FileStorage)
+    
 
     def test_save(self):
         """Tests the FileStorage public instance method `save()`

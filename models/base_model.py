@@ -39,14 +39,16 @@ class BaseModel:
     def __str__(self):
         """
         String representation of the Base model
-        
+
         Return:
             string (str): string description for BaseModel class
         """
         return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
 
     def save(self):
-        """save and update the public attribute `updated_at` with current time"""
+        """
+        save and update the public attribute `updated_at` with current time
+        """
         self.updated_at = datetime.now()
         storage.save()
 

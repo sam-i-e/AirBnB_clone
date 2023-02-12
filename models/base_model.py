@@ -39,7 +39,6 @@ class BaseModel:
     def __str__(self):
         """
         String representation of the Base model
-        
         Return:
             string (str): string description for BaseModel class
         """

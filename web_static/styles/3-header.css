@@ -1,0 +1,19 @@
+header {
+    height: 70px;
+    width: 100%;
+    position: relative;
+    top: 0;
+    border-bottom: 1px solid #CCCCCC;
+}
+
+header div {
+    background-image: url('../images/logo.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 50px;
+    width: 10%;
+    position: relative;
+    margin: auto 0 auto 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}

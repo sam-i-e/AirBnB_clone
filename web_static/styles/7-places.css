@@ -1,0 +1,41 @@
+section.places {
+    display: block;
+    position: relative;
+    text-align: start;
+}
+
+section.places h1 {
+    font-size: 30px;
+    margin-bottom: 0;
+}
+
+section.places article {
+    width: 390px;
+    padding: 20px;
+    margin: 20px;
+    text-align: center;
+    position: relative;
+    border: 1px solid #FF5A5F;
+    border-radius: 4px;
+}
+
+section.places article>h2 {
+    font-size: 30px;
+    margin: 0;
+}
+
+section.places .a1 {
+    display: inline-block;
+    left: 0%;
+}
+
+section.places .a2 {
+    display: inline-block;
+    left: 5%;
+}
+
+section.places .a3 {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
